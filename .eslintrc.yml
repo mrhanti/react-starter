@@ -17,7 +17,7 @@ extends:
   - plugin:import/warnings
 rules:
   indent:
-    - error
+    - warn
     - 2
   linebreak-style:
     - error
@@ -88,7 +88,7 @@ rules:
   no-tabs:
     - error
   no-trailing-spaces:
-    - error
+    - warn
   constructor-super:
     - error
   no-const-assign:
