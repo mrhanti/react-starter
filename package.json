@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "description": "Starter Kit for new web development using react",
   "scripts": {
-    "try": "babel-node tools/devServer.js"
+    "start": "npm-run-all _security-check _lint _open:src",
+    "prebuild": "npm-run-all _lint _clean-dist",
+    "build": "babel-node tools/build.js",
+    "share": "npm-run-all --parallel _open:src _localtunnel",
+    "deploy": "echo \"Error: no deploy defined\" && exit 1",
+
+    "_open:src": "babel-node tools/devServer.js",
+    "_lint": "eslint webpack.config.js ./src ./tools --color -f table",
+    "_security-check": "nsp check",
+    "_localtunnel": "lt --port 80 --subdomain xevolvers",
+    "_clean-dist": "rimraf ./dist && mkdir dist"
   },
   "repository": {
     "type": "git",
@@ -39,6 +49,9 @@
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
+    "localtunnel": "^1.8.2",
+    "npm-run-all": "^3.1.2",
+    "nsp": "^2.6.2",
     "open": "0.0.5",
     "rimraf": "^2.5.4",
     "url-loader": "^0.5.7",
@@ -47,7 +60,6 @@
     "webpack-md5-hash": "0.0.5"
   },
   "dependencies": {
-    "babel-polyfill": "^6.16.0",
     "babel-runtime": "^6.18.0"
   }
 }

@@ -8,20 +8,16 @@ console.log(chalk.grey('Starting WebpackDevServer'));
 
 try {
 
-  const compiler = webpack(config({dev: true}));
+  const compiler = webpack(config({isDev: true}));
 
   const server = new WebpackDevServer(compiler,{
     contentBase: './dist',
     historyApiFallback: true,
-    stats: { colors: true }
+    stats: { colors: true, assets: false },
   });
 
-  server.listen(80,'localhost', err => {
-    if (err){
-      console.log(chalk.red(`err is ${err}`));
-      return;
-    }
-    console.log(chalk.yellow('Listening on port 80'));
+  server.listen(80,'localhost', () => {
+    console.log(chalk.green('Listening on port 80'));
     open('http://localhost');
   });
 

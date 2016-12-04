@@ -4,10 +4,8 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 
-export default options => {
-
-  const prodPlugins = options.dev ? [] : [
-    new webpack.optimize.DedupePlugin(),
+export default ({isDev}) => {
+  const prodPlugins = isDev ? [] : [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       warnings: false,
@@ -28,7 +26,7 @@ export default options => {
   ];
 
   return {
-    devtool: options.dev ? 'eval-source-map' : 'source-map',
+    devtool: isDev ? 'inline-source-map' : 'source-map',
     target: 'web',
     context: path.join(__dirname, './src'),
     entry: {
@@ -42,20 +40,20 @@ export default options => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env': { NODE_ENV: JSON.stringify(options.dev ? 'development' : 'production') }
+        'process.env': { NODE_ENV: JSON.stringify(isDev ? 'development' : 'production') }
       }),
       new webpack.LoaderOptionsPlugin({
-        debug: options.dev,
-        minimize: !options.dev
+        debug: isDev,
+        minimize: !isDev
       }),
-      new ExtractTextPlugin({filename: 'styles.[contenthash].css'}),
       new WebpackMd5Hash(),
+      new ExtractTextPlugin({filename: 'styles.[name].[contenthash].css'}),
       new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
       ...prodPlugins,
       new HTMLWebpackPlugin({
         template: 'index.html',
         inject: true,
-        minify: { removeComments: !options.dev, collapseWhitespace: !options.dev, keepClosingSlash:!options.dev }
+        minify: { removeComments: !isDev, collapseWhitespace: !isDev, keepClosingSlash:!isDev }
       })
     ],
     module: {
