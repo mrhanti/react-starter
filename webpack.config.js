@@ -5,7 +5,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 
 export default ({isDev}) => {
-  const prodPlugins = isDev ? [] : [
+  const uglifyPlugin = isDev ? [] : [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       warnings: false,
@@ -39,22 +39,14 @@ export default ({isDev}) => {
       filename: '[name].[chunkhash].js'
     },
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': { NODE_ENV: JSON.stringify(isDev ? 'development' : 'production') }
-      }),
-      new webpack.LoaderOptionsPlugin({
-        debug: isDev,
-        minimize: !isDev
-      }),
+      new webpack.DefinePlugin({'process.env': { NODE_ENV: JSON.stringify(isDev ? 'development' : 'production') } }),
+      new webpack.ProvidePlugin({$:'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery', 'window.Tether': 'tether' }),
+      new webpack.LoaderOptionsPlugin({debug: isDev, minimize: !isDev }),
       new WebpackMd5Hash(),
-      new ExtractTextPlugin({filename: 'styles.[name].[contenthash].css'}),
+      new ExtractTextPlugin({filename: '[name].[contenthash].css'}),
       new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
-      ...prodPlugins,
-      new HTMLWebpackPlugin({
-        template: 'index.html',
-        inject: true,
-        minify: { removeComments: !isDev, collapseWhitespace: !isDev, keepClosingSlash:!isDev }
-      })
+      ...uglifyPlugin,
+      new HTMLWebpackPlugin({template: 'index.html', inject: true, minify: { removeComments: !isDev, collapseWhitespace: !isDev, keepClosingSlash:!isDev } })
     ],
     module: {
       rules: [
@@ -64,14 +56,22 @@ export default ({isDev}) => {
           loader: 'babel-loader'
         },
         {
-          test: /\.css$/,
-          include: [path.resolve(__dirname,'./src')],
-          loader: ExtractTextPlugin.extract({loader: 'css-loader?sourceMap&modules&localIdentName=[local]--[hash:base64:5]'})
+          test: /\.(css|scss)$/,
+          include: [path.resolve(__dirname,'./src'), path.resolve(__dirname, './node_modules/bootstrap/scss'), path.resolve(__dirname, './node_modules/font-awesome/scss')],
+          loader: ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
         },
         {
-          test: /\.(png|jpg|ttf|eot|wav|mp3)$/,
+          test: /\.(png|jpg|wav|mp3)$/,
           include: [path.resolve(__dirname, './assets')],
           loader: 'url-loader?limit=4096'
+        },
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        },
+        {
+          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'file-loader'
         }
       ]
     }

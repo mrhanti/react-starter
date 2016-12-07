@@ -7,9 +7,11 @@ const pipe = (fn,...fns) => (...params) =>
     ? fn(...params)
     : pipe(...fns)(fn(...params));
 
+
 process.env.NODE_ENV = 'production';
 
-pipe(chalk.blue,console.log)('Generating minified bundle for production. Thiw will take a moment...');
+
+console.log(chalk.blue('Generating minified bundle for production. Thiw will take a moment...'));
 
 webpack(webpackConfig({isDev: false})).run((err,stats) => {
   if (err) {
