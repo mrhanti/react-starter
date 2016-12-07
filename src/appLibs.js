@@ -4,7 +4,9 @@ import 'bootstrap';
 import 'bootstrap/scss/bootstrap-flex.scss';
 import 'font-awesome/scss/font-awesome.scss';
 import 'moment';
-
-//These functions forces babel-runtime to be included in the vendor lib instead of the main lib
-const loadLibs = async () => await new Promise((r)=> r(0));
-loadLibs();
+import 'react';
+import 'redux';
+import 'redux-thunk';
+import 'react-redux';
+import 'react-dom';
+import {Router, Link, IndexLink, IndexRoute, Redirect, Route, browserHistory} from 'react-router'; //eslint-disable-line no-unused-vars
