@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {displayMessage} from '../actions/rootActions';
+import {displayMessage} from '../actions';
 
 
 export class _App extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { count: 0};
+    this.state = { count: 1 };
     this.sayHello = this.sayHello.bind(this);
   }
 

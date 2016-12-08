@@ -4,14 +4,13 @@
   "description": "Starter Kit for new web development using react",
   "scripts": {
     "start": "npm-run-all _security-check _lint _open:src",
-    "prebuild": "npm-run-all _lint _clean-dist",
+    "prebuild": "npm-run-all --parallel _lint _clean-dist _security-check",
     "build": "babel-node tools/build.js",
-    "share": "npm-run-all --parallel _open:src _localtunnel",
+    "share": "lt --port 80 --subdomain xevolvers",
     "deploy": "echo \"Error: no deploy defined\" && exit 1",
     "_open:src": "babel-node tools/devServer.js",
     "_lint": "eslint webpack.config.js ./src ./tools --color -f table",
     "_security-check": "nsp check",
-    "_localtunnel": "lt --port 80 --subdomain xevolvers",
     "_clean-dist": "rimraf ./dist && mkdir dist"
   },
   "repository": {
