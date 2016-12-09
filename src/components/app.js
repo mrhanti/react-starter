@@ -3,40 +3,38 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {displayMessage} from '../actions';
+import './app.css';
 
 
 export class _App extends React.Component {
 
+  static propTypes = {
+    message: React.PropTypes.string.isRequired,
+    displayMessage: React.PropTypes.func.isRequired
+  }
+  static defaultProps = {
+    message: ''
+  }
+
   constructor(props) {
     super(props);
     this.state = { count: 1 };
-    this.sayHello = this.sayHello.bind(this);
   }
 
-
-  sayHello() {
+  sayHello = () => {
     this.props.displayMessage(`World${'!'.repeat(this.state.count)}`);
     this.setState({count: this.state.count + 1 });
   }
 
-  render() {
+  render = () => {
     return (
       <div className="container-fluid">
         <h1 className="display-1">Hello<small>{this.props.message}</small> </h1>
-        <button type="button" className="btn btn-primary" onClick={this.sayHello}>Hot Edit me!</button>
+        <button type="button" className="btn btn-primary" onClick={this.sayHello}>Edit me!</button>
       </div>
     );
   }
 }
-
-_App.defaultProps = {
-  message: ''
-};
-
-_App.propTypes = {
-  message: React.PropTypes.string.isRequired,
-  displayMessage: React.PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => ({message: state.message });
 const mapDispatchToProps = dispatch => bindActionCreators({displayMessage},dispatch);

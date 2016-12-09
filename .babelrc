@@ -1,5 +1,5 @@
 {
-  "presets": [ ["latest", { "es2015": { "modules": false, "loose": true }}], "react", "stage-3" ],
+  "presets": [ ["latest", { "es2015": { "modules": false, "loose": true }}], "react", "stage-2" ],
   "plugins": ["transform-runtime"],
   "env": {
     "development": {

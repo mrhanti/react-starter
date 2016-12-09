@@ -14,7 +14,7 @@ export default ({isDev}) => {
     context: path.resolve(__dirname, '../src'),
     entry: {
       vendor: './appLibs',
-      main: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client?http://localhost'),ifDev('webpack/hot/only-dev-server'),'./appLoader'].filter(id => id)
+      main: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'),'./appLoader'].filter(id => id)
     },
     output: {
       path: path.resolve(__dirname,'../dist'),
@@ -29,7 +29,7 @@ export default ({isDev}) => {
       ifDev(new webpack.NamedModulesPlugin()),
       ifProd(new WebpackMd5Hash()),
       new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
-      new ExtractTextPlugin({filename:  isDev ? '[name].css' : '[name].[contenthash].css'}),
+      ifProd(new ExtractTextPlugin({filename: '[name].[contenthash].css'})),
       ifProd(new webpack.optimize.UglifyJsPlugin({ mangle: true, warnings: false, 'screw_ie8': true, conditionals: true, unused: true, comparisons: true, sourceMap: true, sequences: true, 'dead_code': true, evaluate: true, 'if_return': true, 'join_vars': true, output: { comments: false }})),
       new HTMLWebpackPlugin({template: 'index.html', inject: true, minify: { removeComments: !isDev, collapseWhitespace: !isDev, keepClosingSlash:!isDev } })
     ].filter(id => id),
@@ -43,7 +43,7 @@ export default ({isDev}) => {
         {
           test: /\.(css|scss)$/,
           include: [path.resolve(__dirname,'../src'), path.resolve(__dirname, '../node_modules/bootstrap/scss'), path.resolve(__dirname, '../node_modules/font-awesome/scss')],
-          loader: ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
+          loader: isDev ? 'style-loader!css-loader?sourceMap!sass-loader?sourceMap' : ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
         },
         {
           test: /\.(png|jpg|wav|mp3)$/,

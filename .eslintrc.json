@@ -69,6 +69,7 @@
       "react/jsx-no-undef": "error",
       "react/jsx-uses-vars": "error",
       "react/jsx-uses-react": "error",
+      "react/jsx-no-bind": "warn",
       "import/no-unresolved": "error",
       "import/no-dynamic-require": "error",
       "import/no-extraneous-dependencies": "error",
