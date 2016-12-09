@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import webpackConfig from '../webpack.config';
+import webpackConfig from './webpack.config';
 import chalk from 'chalk';
 
 const pipe = (fn,...fns) => (...params) =>

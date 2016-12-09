@@ -1,2 +1,19 @@
-# react-starter
-React Starter repository: cache bursting, css extraction, production, jquery &amp; bootstrap, hot, react,redux,router, babel stage-2, eslint, jsx, webpack 2, moment, vendor.js,  sentry, editorconfig, font-awesome, pipejavascript
+# React Starter
+
+React Starter repository: 
+  -Cache bursting
+  -Css extraction
+  -Production
+  -Jquery 
+  -Bootstrap 4
+  -Hot reload
+  -React,
+  -Redux,
+  -React-Router
+  -Babel stage-3, jsx, babel-runtime
+  -Eslint
+  -Webpack 2
+  -Moment js,
+  -appLibs & appMain
+  -Editorconfig
+  -Font-awesome

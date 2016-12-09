@@ -1,10 +1,10 @@
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
-import config from '../webpack.config';
+import config from './webpack.config';
 import chalk from 'chalk';
 import open from 'open';
 
-console.log(chalk.grey('Starting WebpackDevServer'));
+console.log(chalk.blue('Starting WebpackDevServer debug'));
 
 try {
 
@@ -13,6 +13,8 @@ try {
   const server = new WebpackDevServer(compiler,{
     contentBase: './dist',
     historyApiFallback: true,
+    hot: true,
+    inline: true,
     stats: { colors: true, assets: false },
   });
 

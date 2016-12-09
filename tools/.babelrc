@@ -1,0 +1,4 @@
+{
+  "presets": [ ["latest", { "es2015": { "loose": true }}], "react", "stage-3" ],
+  "plugins": ["transform-runtime"]
+}

@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {displayMessage} from '../actions';
 
 
-export class _App extends React.PureComponent {
+export class _App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -15,15 +15,15 @@ export class _App extends React.PureComponent {
 
 
   sayHello() {
-    this.props.displayMessage(`Hello${'!'.repeat(this.state.count)}`);
+    this.props.displayMessage(`World${'!'.repeat(this.state.count)}`);
     this.setState({count: this.state.count + 1 });
   }
 
   render() {
     return (
       <div className="container-fluid">
-        <h1 className="display-1">{this.props.message}</h1>
-        <button type="button" className="btn btn-primary" onClick={this.sayHello}>Say Hello</button>
+        <h1 className="display-1">Hello<small>{this.props.message}</small> </h1>
+        <button type="button" className="btn btn-primary" onClick={this.sayHello}>Hot Edit me!</button>
       </div>
     );
   }
