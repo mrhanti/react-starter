@@ -13,8 +13,8 @@ export default ({isDev}) => {
     target: 'web',
     context: path.resolve(__dirname, '../src'),
     entry: {
-      vendor: './appLibs',
-      main: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'),'./appLoader'].filter(id => id)
+      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), 'react-hot-loader','./appLibs'].filter(id => id),
+      main: './appLoader',
     },
     output: {
       path: path.resolve(__dirname,'../dist'),
