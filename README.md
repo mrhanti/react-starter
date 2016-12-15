@@ -1,10 +1,9 @@
 # Simple React Starter
 
+
   * Cache bursting
   * Css extraction
   * Production
-  * Jquery 
-  * Bootstrap 4
   * Hot reload
   * React,
   * Redux,
@@ -15,4 +14,3 @@
   * Moment js,
   * appLibs & appMain
   * Editorconfig
-  * Font-awesome
