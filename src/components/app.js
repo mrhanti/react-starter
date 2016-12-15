@@ -22,15 +22,15 @@ export class _App extends React.Component {
   }
 
   sayHello = () => {
-    this.props.displayMessage(`World${'!'.repeat(this.state.count)}`);
+    this.props.displayMessage(` World${'!'.repeat(this.state.count)}`);
     this.setState({count: this.state.count + 1 });
   }
 
   render = () => {
     return (
-      <div className="container-fluid">
-        <h1 className="display-1">Hello<small>{this.props.message}</small> </h1>
-        <button type="button" className="btn btn-primary" onClick={this.sayHello}>Edit me!</button>
+      <div>
+        <h1>Hello<small>{this.props.message}</small> </h1>
+        <button type="button" onClick={this.sayHello}>Edit me!</button>
       </div>
     );
   }

@@ -21,9 +21,11 @@ export default ({isDev}) => {
       publicPath: '/',
       filename: isDev ? '[name].js' : '[name].[chunkhash].js'
     },
+    performance: {
+      hints: !isDev
+    },
     plugins: [
       new webpack.DefinePlugin({'process.env': { NODE_ENV: JSON.stringify(isDev ? 'development' : 'production') } }),
-      new webpack.ProvidePlugin({$:'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery', 'window.Tether': 'tether' }),
       new webpack.LoaderOptionsPlugin({debug: isDev, minimize: !isDev }),
       ifDev(new webpack.HotModuleReplacementPlugin()),
       ifDev(new webpack.NamedModulesPlugin()),
@@ -42,7 +44,7 @@ export default ({isDev}) => {
         },
         {
           test: /\.(css|scss)$/,
-          include: [path.resolve(__dirname,'../src'), path.resolve(__dirname, '../node_modules/bootstrap/scss'), path.resolve(__dirname, '../node_modules/font-awesome/scss')],
+          include: [path.resolve(__dirname,'../src')],
           loader: isDev ? 'style-loader!css-loader?sourceMap!sass-loader?sourceMap' : ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
         },
         {
