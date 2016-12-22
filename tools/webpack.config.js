@@ -7,19 +7,19 @@ import WebpackMd5Hash from 'webpack-md5-hash';
 export default ({isDev}) => {
   const ifDev = then => (isDev ? then : null);
   const ifProd = then => (!isDev ? then : null);
+  const nullsOut = i => i;
 
   return {
     devtool: isDev ? 'inline-source-map' : 'source-map',
     target: 'web',
     context: path.resolve(__dirname, '../src'),
     entry: {
-      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), 'react-hot-loader','./appLibs'].filter(id => id),
+      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), 'react-hot-loader','./appLibs'].filter(nullsOut),
       main: './appLoader',
     },
     output: {
       path: path.resolve(__dirname,'../dist'),
-      publicPath: isDev ? 'http://localhost/' : '/',
-      /*Note about source maps support and assets referenced with url: when style loader is used with ?sourceMap option, the CSS modules will be generated as Blobs, so relative paths don't work (they would be relative to chrome:blob or chrome:devtools). In order for assets to maintain correct paths setting output.publicPath property of webpack configuration must be set, so that absolute paths are generated. */
+      publicPath: '/',
       filename: isDev ? '[name].js' : '[name].[chunkhash].js'
     },
     performance: {
@@ -35,7 +35,7 @@ export default ({isDev}) => {
       ifProd(new ExtractTextPlugin({filename: '[name].[contenthash].css'})),
       ifProd(new webpack.optimize.UglifyJsPlugin({ mangle: true, warnings: false, 'screw_ie8': true, conditionals: true, unused: true, comparisons: true, sourceMap: true, sequences: true, 'dead_code': true, evaluate: true, 'if_return': true, 'join_vars': true, output: { comments: false }})),
       new HTMLWebpackPlugin({template: 'index.html', inject: true, minify: { removeComments: !isDev, collapseWhitespace: !isDev, keepClosingSlash:!isDev } })
-    ].filter(id => id),
+    ].filter(nullsOut),
     module: {
       rules: [
         {
@@ -47,6 +47,11 @@ export default ({isDev}) => {
           test: /\.(css|scss)$/,
           include: [path.resolve(__dirname,'../src')],
           loader: isDev ? 'style-loader!css-loader?sourceMap!sass-loader?sourceMap' : ExtractTextPlugin.extract({loader: 'css-loader?sourceMap!sass-loader?sourceMap'})
+        },
+        {
+          test: /\.css$/,
+          include: [path.resolve(__dirname,'../node_modules/normalize.css')],
+          loader: isDev ? 'style-loader!css-loader' : ExtractTextPlugin.extract({loader: 'css-loader'})
         },
         {
           test: /\.(png|jpg|wav|mp3)$/,

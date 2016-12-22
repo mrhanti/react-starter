@@ -3,10 +3,10 @@
 export const rootReducer = (state = {}, action) => {
 
   switch(action.type) {
-  case 'SEND_MESSAGE':
-    return { message: action.message };
-  default:
-    return state;
+    case 'SEND_MESSAGE':
+      return { message: action.message };
+    default:
+      return state;
   }
 
 };

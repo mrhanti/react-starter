@@ -18,7 +18,7 @@ try {
     stats: { colors: true, assets: false },
   });
 
-  server.listen(80,'localhost', () => {
+  server.listen(80,'0.0.0.0', () => {
     console.log(chalk.green('Listening on port 80'));
     open('http://localhost');
   });
