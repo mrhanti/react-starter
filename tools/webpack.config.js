@@ -14,8 +14,8 @@ export default ({isDev}) => {
     target: 'web',
     context: path.resolve(__dirname, '../src'),
     entry: {
-      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), 'react-hot-loader','./appLibs'].filter(nullsOut),
-      main: './appLoader',
+      vendor: [ifDev('react-hot-loader/patch'),ifDev('webpack-dev-server/client'),ifDev('webpack/hot/only-dev-server'), 'react-hot-loader','./lib'].filter(nullsOut),
+      main: './boot',
     },
     output: {
       path: path.resolve(__dirname,'../dist'),
