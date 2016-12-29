@@ -4,6 +4,9 @@ import config from './webpack.config';
 import chalk from 'chalk';
 import open from 'open';
 
+const host = 'localhost';
+const port = 9002;
+
 console.log(chalk.blue('Starting WebpackDevServer debug'));
 
 try {
@@ -18,9 +21,9 @@ try {
     stats: { colors: true, assets: false },
   });
 
-  server.listen(80,'0.0.0.0', () => {
-    console.log(chalk.green('Listening on port 80'));
-    open('http://localhost');
+  server.listen(port, host, () => {
+    console.log(chalk.green(`Listening on port ${host}:${port}`));
+    open(`http://${host}:${port}`);
   });
 
 } catch (ex) {

@@ -4,6 +4,8 @@ import chalk from 'chalk';
 import open from 'open';
 import compression from 'compression';
 
+const host = 'localhost';
+const port = 9002;
 
 console.log(chalk.blue('Testing release build'));
 
@@ -16,9 +18,9 @@ app.get('*', function(req, res) {
 });
 
 
-app.listen(80, err => {
+app.listen(port, err => {
   if (err)
     console.log(chalk.red(err));
   else
-    open('http://localhost');
+    open(`http://${host}:${port}`);
 });
