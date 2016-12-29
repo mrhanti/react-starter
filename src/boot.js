@@ -5,8 +5,6 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {browserHistory, Router} from 'react-router';
 import {AppContainer as HotReloader} from 'react-hot-loader';
 import thunk from 'redux-thunk';
-
-
 import {rootReducer} from './reducers';
 import {routes} from './routes';
 

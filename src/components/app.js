@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {displayMessage} from '../actions';
-import './app.css';
 
 
 export class _App extends React.Component {
